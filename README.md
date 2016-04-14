@@ -124,9 +124,7 @@ For more information about BEM naming conventions check out it's [documentation]
 
 ### State rules
 
-Never reference `js-` prefixed class names from CSS files. `js-` are used exclusively from JS files.
-
-Use the `is-` prefix for state rules that are shared between CSS and JS.
+Use the `is-` prefix for state rules that are shared between CSS and JS (`.is-active`, `.is-visible`, etc.).
 
 ## Declaration order
 
@@ -196,7 +194,7 @@ Often times we don't need to set all the values a shorthand property represents.
 
 Code is written and maintained by people. Ensure your code is descriptive, well commented, and approachable by others. Great code comments convey context or purpose. Do not simply reiterate a component or class name.
 
-If you're forced to use some hack, put an explanation or source somewhere near as a comment.
+If you're forced to use any hack within your code, put an explanation or source somewhere near as a comment.
 
 ## Sass
 
