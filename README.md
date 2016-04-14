@@ -1,4 +1,4 @@
-CSS Style Guides
+CSS Style Guides (Work in progress)
 ==================
 
 ## Table of contents
@@ -59,6 +59,41 @@ We use custom-build normalize file for improved cross-browser rendering. It help
   box-shadow: 0 1px 2px #cccccc, inset 0 1px 0 #ffffff;
 }
 ```
+
+## Naming conventions
+
+Naming conventions in CSS are very useful in making your code more strict, more transparent, and more informative.
+
+A good naming convention will tell you and your team
+
+- what type of thing a class does;
+- where a class can be used;
+- what (else) a class might be related to.
+
+We use **BEM** methodology for naming CSS modules.
+
+BEM splits modules classes into three groups:
+
+- Block: The sole root of the module.
+- Element: A module part of the Block.
+- Modifier: A variant or extension of the Block.
+
+```css
+.article {}
+.article__title {}
+.article_featured {}
+```
+
+Elements are delimited with two (2) underscores (`__`), and Modifiers are delimited by one (1) underscore (`_`).
+
+Two-part Block/Element/Modifier names are delimited by one (1) hyphen (`-`).
+
+```css
+.image-card {}
+.image-card_modifier-name {}
+```
+
+For more information about BEM naming conventions check out it's [documentation](https://en.bem.info/method/naming-convention/).
 
 ## Declaration order
 
@@ -126,9 +161,11 @@ Often times we don't need to set all the values a shorthand property represents.
 
 ## Comments
 
-## Sass
+Code is written and maintained by people. Ensure your code is descriptive, well commented, and approachable by others. Great code comments convey context or purpose. Do not simply reiterate a component or class name.
 
-### Z-index
+If you're forced to use some hack, put an explanation or source somewhere near as a comment.
+
+## Sass
 
 ### Variables
 
@@ -138,30 +175,112 @@ grouped
 
 reusable
 
-### Declaration order
+### Z-index
 
-Rule sets should be ordered as follows: `@extend` declarations, `@include` declarations without inner `@content`, properties, `@include` declarations with inner `@content`, then nested rule sets.
+`z-index` values should be stored in a well-defined variable groups at any time. No `z-index` value should be written in number notation. Take some time to think about project layers and define clear value groups.
 
 **Bad**
 
 ```scss
-.fatal-error {
-  img {
-    ...
-  }
+.header {
+  z-index: 1;
+}
 
-  background-color: #f00;
-  @extend %error;
-  @include status-box();
+.footer {
+  z-index: 9999;
 }
 ```
 
 **Good**
 
 ```scss
-.fatal-error {
-  @extend %error;
-  @include status-box();
+$zindex-header: 5;
+$zindex-footer: 10;
+
+.header {
+  z-index: $zindex-header;
+}
+
+.footer {
+  z-index: $zindex-footer;
+}
+```
+
+Keep `z-index` values divisible by `5` and equally spaced (`5`, `10`, `15`). This will allow you to easily add sub-layer positions using Sass operators.
+
+```scss
+$zindex-header: 5;
+
+.header {
+  z-index: $zindex-header;
+}
+
+.header__title {
+  z-index: ($zindex-header + 1);
+}
+```
+
+### Extends
+
+Avoid using Sass `@extend` functionality unless it's absolute necessary. It's always better to create module modifier which will extend main module styles.
+
+**Bad**
+
+```scss
+.status {
+  background-color: #EEE;
+}
+
+.status_error {
+  @extend .status;
+  color: #F00;
+}
+```
+
+```html
+<div class="status_error">Error</div>
+```
+
+**Good**
+
+```scss
+.status {
+  background-color: #eeeeee;
+}
+
+.status_error {
+  color: #ff0000;
+}
+```
+
+```html
+<div class="status status_error">Error</div>
+```
+
+### Declaration order
+
+Rule sets should be ordered as follows: `@extend` declarations (if necessary), `@include` declarations without inner `@content`, properties, `@include` declarations with inner `@content`, then nested rule sets.
+
+**Bad**
+
+```scss
+.error {
+  img {
+    ...
+  }
+
+  background-color: #f00;
+  @extend %status;
+  @include status();
+}
+```
+
+**Good**
+
+```scss
+.error {
+  @extend %status;
+  @include status();
   background-color: #f00;
 
   img {
@@ -189,6 +308,24 @@ For improved readability, wrap all math operations in parentheses with a single 
   margin-bottom: ($variable * 2);
 }
 ```
+
+### Comments
+
+Begin each Sass file with block comment containing group name and name of the file/module:
+
+```css
+/*
+** Module - Heading
+** -----------------------------------------------------------------------------*/
+```
+
+Block comments should be started with one of those 5 prefixes:
+
+- Common
+- Module
+- Utility
+- Setup
+- Vendor
 
 ## Editor preferences
 
