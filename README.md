@@ -1,7 +1,31 @@
 CSS Style Guides (Work in progress)
 ==================
 
-## Table of contents
+<!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
+
+	- [Golden Rule](#golden-rule)
+	- [Scaffolding](#scaffolding)
+		- [Box-sizing](#box-sizing)
+		- [Normalize](#normalize)
+	- [Syntax](#syntax)
+	- [Naming conventions](#naming-conventions)
+		- [Module naming](#module-naming)
+		- [State rules](#state-rules)
+	- [Declaration order](#declaration-order)
+	- [Vendor prefixes](#vendor-prefixes)
+	- [Shorthand notation](#shorthand-notation)
+	- [Comments](#comments)
+	- [Sass](#sass)
+		- [Variables](#variables)
+		- [Mixins](#mixins)
+		- [Z-index](#z-index)
+		- [Extends](#extends)
+		- [Declaration order](#declaration-order)
+		- [Operators](#operators)
+		- [Comments](#comments)
+	- [Editor preferences](#editor-preferences)
+
+<!-- /TOC -->
 
 ## Golden Rule
 
@@ -34,6 +58,7 @@ We use custom-build normalize file for improved cross-browser rendering. It help
 - Lowercase all hex values, e.g., `#bada55`. Lowercase letters are much easier to discern when scanning a document as they tend to have more unique shapes.
 - Always use long hex values, e.g., `#ffffff` instead of `#fff`.
 - Quote attribute values in selectors, e.g., `input[type="text"]`.
+- Use single or double quotes consistently. Preference is for double quotes, e.g., content: "".
 - Avoid specifying units for zero values, e.g., `margin: 0` instead of `margin: 0px`.
 
 **Bad**
@@ -62,9 +87,11 @@ We use custom-build normalize file for improved cross-browser rendering. It help
 
 ## Naming conventions
 
+### Module naming
+
 Naming conventions in CSS are very useful in making your code more strict, more transparent, and more informative.
 
-A good naming convention will tell you and your team
+A good naming convention will tell you and your contributors
 
 - what type of thing a class does;
 - where a class can be used;
@@ -78,13 +105,13 @@ BEM splits modules classes into three groups:
 - Element: A module part of the Block.
 - Modifier: A variant or extension of the Block.
 
+Elements are delimited with two (2) underscores (`__`), and Modifiers are delimited by one (1) underscore (`_`).
+
 ```css
 .article {}
 .article__title {}
 .article_featured {}
 ```
-
-Elements are delimited with two (2) underscores (`__`), and Modifiers are delimited by one (1) underscore (`_`).
 
 Two-part Block/Element/Modifier names are delimited by one (1) hyphen (`-`).
 
@@ -94,6 +121,12 @@ Two-part Block/Element/Modifier names are delimited by one (1) hyphen (`-`).
 ```
 
 For more information about BEM naming conventions check out it's [documentation](https://en.bem.info/method/naming-convention/).
+
+### State rules
+
+Never reference `js-` prefixed class names from CSS files. `js-` are used exclusively from JS files.
+
+Use the `is-` prefix for state rules that are shared between CSS and JS.
 
 ## Declaration order
 
