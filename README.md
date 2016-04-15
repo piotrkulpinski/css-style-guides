@@ -98,6 +98,12 @@ We use custom-build normalize file for improved cross-browser rendering. It help
 - Organize sections of code by module.
 - Use consistent white space to your advantage when separating sections of code for scanning larger documents.
 - When using multiple CSS files, break them down by module instead of page. Pages can be rearranged and modules moved.
+- Group multiple partial files in one of those 5 categories:
+  - Common
+  - Module
+  - Utility
+  - Setup
+  - Vendor
 
 ## Naming conventions
 
