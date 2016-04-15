@@ -8,6 +8,7 @@ CSS Style Guides (Work in progress)
 	- [Box-sizing](#box-sizing)
 	- [Normalize](#normalize)
 - [Syntax](#syntax)
+- [Organization](#organization)
 - [Naming conventions](#naming-conventions)
 	- [Module naming](#module-naming)
 	- [State rules](#state-rules)
@@ -24,6 +25,10 @@ CSS Style Guides (Work in progress)
 	- [Declaration order](#declaration-order)
 	- [Operators](#operators)
 	- [Nesting](#nesting)
+		- [Elements](#elements)
+		- [BEM nesting with `&`](#bem-nesting-with-)
+		- [Un-nesting with *'parent selector'* `&`](#un-nesting-with-parent-selector-)
+		- [Nesting pseudo-classes and pseudo-elements with `&`](#nesting-pseudo-classes-and-pseudo-elements-with-)
 	- [Comments](#comments)
 - [Editor preferences](#editor-preferences)
 
@@ -87,6 +92,12 @@ We use custom-build normalize file for improved cross-browser rendering. It help
   box-shadow: 0 1px 2px #cccccc, inset 0 1px 0 #ffffff;
 }
 ```
+
+## Organization
+
+- Organize sections of code by component.
+- Use consistent white space to your advantage when separating sections of code for scanning larger documents.
+- When using multiple CSS files, break them down by component instead of page. Pages can be rearranged and components moved.
 
 ## Naming conventions
 
@@ -371,7 +382,7 @@ For improved readability, wrap all math operations in parentheses with a single 
 
 Avoid unnecessary nesting. Just because you can nest, doesn't mean you always should. Consider nesting only if you must scope styles to a parent and if there are multiple elements to be nested.
 
-**Elements**
+#### Elements
 
 I find this to be the most common form of nesting and is probably just fine for most sites. It’s not necessarily bad, but nesting like this makes your CSS more specific. It also doesn’t force you to write reusable components, which is what you want for building most websites.
 
@@ -393,7 +404,7 @@ Consider rewriting that code to something like:
 
 Those classes have lower specificity, more meaningful selectors, and are component-based.
 
-**BEM nesting with `&`**
+#### BEM nesting with `&`
 
 Nesting for BEM is helpful at first, but comes as a cost. While it can save you a few bytes it makes the code less readable (especially with longer Blocks) and it's hard to find Elements or Modifiers by their class names.
 
@@ -414,7 +425,7 @@ Instead, keep it simple and just write it all out:
 
 Easy to read, easy to search, and with no sacrifice to your compiled CSS.
 
-**Un-nesting with *'parent selector'* `&`**
+#### Un-nesting with *'parent selector'* `&`
 
 The un-nesting example is perhaps the most confusing way to nest CSS.
 
@@ -439,7 +450,7 @@ Rather than go that route, try something like this:
 
 The result is a component-based approach with lower specificity and clearer insight into what your compiled CSS will be.
 
-**Nesting pseudo-classes and pseudo-elements with `&`**
+#### Nesting pseudo-classes and pseudo-elements with `&`
 
 Nesting with pseudo-* feels like the only practical way to nest your CSS.
 
