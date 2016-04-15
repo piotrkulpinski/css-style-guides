@@ -11,6 +11,7 @@ CSS Style Guides (Work in progress)
 - [Naming conventions](#naming-conventions)
 	- [Module naming](#module-naming)
 	- [State rules](#state-rules)
+	- [Consistency](#consistency)
 - [Declaration order](#declaration-order)
 - [Vendor prefixes](#vendor-prefixes)
 - [Shorthand notation](#shorthand-notation)
@@ -22,6 +23,7 @@ CSS Style Guides (Work in progress)
 	- [Extends](#extends)
 	- [Declaration order](#declaration-order)
 	- [Operators](#operators)
+	- [Nesting](#nesting)
 	- [Comments](#comments)
 - [Editor preferences](#editor-preferences)
 
@@ -58,8 +60,9 @@ We use custom-build normalize file for improved cross-browser rendering. It help
 - Lowercase all hex values, e.g., `#bada55`. Lowercase letters are much easier to discern when scanning a document as they tend to have more unique shapes.
 - Always use long hex values, e.g., `#ffffff` instead of `#fff`.
 - Quote attribute values in selectors, e.g., `input[type="text"]`.
-- Use single or double quotes consistently. Preference is for double quotes, e.g., content: "".
+- Use single or double quotes consistently. Preference is for double quotes, e.g., content: `""`.
 - Avoid specifying units for zero values, e.g., `margin: 0` instead of `margin: 0px`.
+- Use single colon for **[pseudo-classes](https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-classes)** and double colon for **[pseudo-elements](https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-elements)**, e.g., `.btn:hover {}` and `.btn::before {}`.
 
 **Bad**
 
@@ -125,6 +128,30 @@ For more information about BEM naming conventions check out it's [documentation]
 ### State rules
 
 Use the `is-` prefix for state rules that are shared between CSS and JS (`.is-active`, `.is-visible`, etc.).
+
+### Consistency
+
+Keep consistent class names throughout every project. That means if you name a header class in one project `.page-head`, use the same name in every other project instead of `.header`, `.head`, etc.
+
+**Bad**
+
+```scss
+/* Project 1 */
+.page-head {}
+
+/* Project 2 */
+.header {}
+```
+
+**Good**
+
+```scss
+/* Project 1 */
+.page-head {}
+
+/* Project 2 */
+.page-head {}
+```
 
 ## Declaration order
 
@@ -339,6 +366,94 @@ For improved readability, wrap all math operations in parentheses with a single 
   margin-bottom: ($variable * 2);
 }
 ```
+
+### Nesting
+
+Avoid unnecessary nesting. Just because you can nest, doesn't mean you always should. Consider nesting only if you must scope styles to a parent and if there are multiple elements to be nested.
+
+**Elements**
+
+I find this to be the most common form of nesting and is probably just fine for most sites. It’s not necessarily bad, but nesting like this makes your CSS more specific. It also doesn’t force you to write reusable components, which is what you want for building most websites.
+
+```css
+.selector {
+  h1 {}
+  span {}
+  a {}
+}
+```
+
+Consider rewriting that code to something like:
+
+```css
+.selector-heading {}
+.selector-subheading {}
+.selector-permalink {}
+```
+
+Those classes have lower specificity, more meaningful selectors, and are component-based.
+
+**BEM nesting with `&`**
+
+Nesting for BEM is helpful at first, but comes as a cost. While it can save you a few bytes it makes the code less readable (especially with longer Blocks) and it's hard to find Elements or Modifiers by their class names.
+
+```css
+.block {
+  &__element {}
+  &_modifier {}
+}
+```
+
+Instead, keep it simple and just write it all out:
+
+```css
+.block {}
+.block__element {}
+.block_modifier {}
+```
+
+Easy to read, easy to search, and with no sacrifice to your compiled CSS.
+
+**Un-nesting with *'parent selector'* `&`**
+
+The un-nesting example is perhaps the most confusing way to nest CSS.
+
+```css
+.child {
+  .parent & {}
+}
+```
+
+When used at the end of a nested selector, the `&` puts everything to the left of it before the parent selector. So the above example compiles to `.parent .child {}`. This is confusing in a few ways:
+
+- The `&` puts that selector at the beginning of the top-most parent.
+- It’s the opposite of how regular nesting works.
+- It clouds your vision of the compiled CSS.
+
+Rather than go that route, try something like this:
+
+```css
+.child {}
+.child_modifier {}
+```
+
+The result is a component-based approach with lower specificity and clearer insight into what your compiled CSS will be.
+
+**Nesting pseudo-classes and pseudo-elements with `&`**
+
+Nesting with pseudo-* feels like the only practical way to nest your CSS.
+
+```css
+.btn {
+  &:hover,
+  &:focus,
+  &:active {}
+
+  &::before {}
+}
+```
+
+What makes it different from the previous example is that this is all one element and class, just with different states. It’s not multiple half-classes that do different things.
 
 ### Comments
 
