@@ -95,9 +95,9 @@ We use custom-build normalize file for improved cross-browser rendering. It help
 
 ## Organization
 
-- Organize sections of code by component.
+- Organize sections of code by module.
 - Use consistent white space to your advantage when separating sections of code for scanning larger documents.
-- When using multiple CSS files, break them down by component instead of page. Pages can be rearranged and components moved.
+- When using multiple CSS files, break them down by module instead of page. Pages can be rearranged and modules moved.
 
 ## Naming conventions
 
@@ -173,9 +173,9 @@ Related property declarations should be grouped together following the order:
 3. Typographic
 4. Visual
 
-Positioning comes first because it can remove an element from the normal flow of the document and override box model related styles. The box model comes next as it dictates a component's dimensions and placement.
+Positioning comes first because it can remove an element from the normal flow of the document and override box model related styles. The box model comes next as it dictates a module's dimensions and placement.
 
-Everything else takes place inside the component or without impacting the previous two sections, hence they come last.
+Everything else takes place inside the module or without impacting the previous two sections, hence they come last.
 
 ```css
 .declaration-order {
@@ -230,7 +230,7 @@ Often times we don't need to set all the values a shorthand property represents.
 
 ## Comments
 
-Code is written and maintained by people. Ensure your code is descriptive, well commented, and approachable by others. Great code comments convey context or purpose. Do not simply reiterate a component or class name.
+Code is written and maintained by people. Ensure your code is descriptive, well commented, and approachable by others. Great code comments convey context or purpose. Do not simply reiterate a module or class name.
 
 If you're forced to use any hack within your code, put an explanation or source somewhere near as a comment.
 
@@ -384,7 +384,7 @@ Avoid unnecessary nesting. Just because you can nest, doesn't mean you always sh
 
 #### Elements
 
-I find this to be the most common form of nesting and is probably just fine for most sites. It’s not necessarily bad, but nesting like this makes your CSS more specific. It also doesn’t force you to write reusable components, which is what you want for building most websites.
+I find this to be the most common form of nesting and is probably just fine for most sites. It’s not necessarily bad, but nesting like this makes your CSS more specific. It also doesn’t force you to write reusable modules, which is what you want for building most websites.
 
 ```css
 .selector {
@@ -402,7 +402,7 @@ Consider rewriting that code to something like:
 .selector-permalink {}
 ```
 
-Those classes have lower specificity, more meaningful selectors, and are component-based.
+Those classes have lower specificity, more meaningful selectors, and are module-based.
 
 #### BEM nesting with `&`
 
@@ -448,7 +448,7 @@ Rather than go that route, try something like this:
 .child_modifier {}
 ```
 
-The result is a component-based approach with lower specificity and clearer insight into what your compiled CSS will be.
+The result is a module-based approach with lower specificity and clearer insight into what your compiled CSS will be.
 
 #### Nesting pseudo-classes and pseudo-elements with `&`
 
