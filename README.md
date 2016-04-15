@@ -48,7 +48,7 @@ We reset `box-sizing` to `border-box` for every element. This allows us to more 
 
 ### Normalize
 
-We use custom-build normalize file for improved cross-browser rendering. It helps to correct small inconsistencies across browsers and devices.
+We use custom-build [normalize](https://github.com/piotrkulpinski/normalize) file for improved cross-browser rendering. It helps to correct small inconsistencies across browsers and devices.
 
 ## Syntax
 
@@ -184,7 +184,7 @@ Positioning comes first because it can remove an element from the normal flow of
 Everything else takes place inside the module or without impacting the previous two sections, hence they come last.
 
 ```css
-.declaration-order {
+.selector {
   /* Positioning */
   position: absolute;
   top: 0;
@@ -403,9 +403,9 @@ I find this to be the most common form of nesting and is probably just fine for 
 Consider rewriting that code to something like:
 
 ```css
-.selector-heading {}
-.selector-subheading {}
-.selector-permalink {}
+.selector__heading {}
+.selector__subheading {}
+.selector__permalink {}
 ```
 
 Those classes have lower specificity, more meaningful selectors, and are module-based.
